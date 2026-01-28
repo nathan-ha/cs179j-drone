@@ -1,3 +1,0 @@
-"""
-Nested file in foo/
-"""

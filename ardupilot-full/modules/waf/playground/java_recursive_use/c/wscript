@@ -1,9 +1,0 @@
-
-def build(bld):
-	bld(features='javac jar',
-		srcdir='src',
-		name='c',
-		basedir='.',
-		use='b',
-		recurse_use = True
-	)

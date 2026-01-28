@@ -1,4 +1,0 @@
-include ../sitl/hwdef.dat
-
-env TOOLCHAIN x86_64-linux-gnu
-env STATIC_LINKING 1
