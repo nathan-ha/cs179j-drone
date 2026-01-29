@@ -77,7 +77,7 @@ gz sim -v4 -r iris_runway.sdf
 ```
 Open up another terminal and run 
 ```
-sim_vehicle.py -v ArduCopter -f gazebo-iris --model JSON --map --console```
+sim_vehicle.py -v ArduCopter -f gazebo-iris --model JSON --map --console
 ```
 
 NOTE: **Only ArduPilot needs a virtual environment.**
