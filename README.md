@@ -80,4 +80,15 @@ Open up another terminal and run
 sim_vehicle.py -v ArduCopter -f gazebo-iris --model JSON --map --console
 ```
 
-NOTE: **Only ArduPilot needs a virtual environment.**
+**NOTE**: Only ArduPilot needs a virtual environment.
+
+
+## Configurations
+The Gazebo 3D simulation may be really laggy. This is because of WSL. WSL uses a software GPU called llvmpipe instead of using the actual GPU on your device.
+Type ```glxinfo -B` into the terminal and check the OpenGL section. If it says llvmpipe, it is using the software GPU.
+Adding this will switch to your actual GPU: 
+```
+export MESA_D3D12_DEFAULT_ADAPTER_NAME=NVIDIA
+export GALLIUM_DRIVER=d3d12
+export LIBGL_ALWAYS_SOFTWARE=false
+```
