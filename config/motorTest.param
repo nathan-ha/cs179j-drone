@@ -1,0 +1,15 @@
+# ArduPilot Parameter File for Bench Motor Testing
+# Frame: Quadcopter X
+FRAME_CLASS     1
+FRAME_TYPE      1
+
+# ESC Protocol: DShot600 (Best for H743 boards)
+MOT_PWM_TYPE    4
+
+# --- SAFETY BYPASS FOR DESK TESTING ---
+# Disables pre-arm checks (allows spin without GPS/RC)
+ARMING_CHECK    0
+# Disables physical safety switch requirement
+BRD_SAFETY_DEFLT 0
+# Lowers the idle spin speed for safety
+MOT_SPIN_ARM    0.05
