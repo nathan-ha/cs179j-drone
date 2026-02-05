@@ -118,14 +118,14 @@ class Drone:
                     break
                 time.sleep(0.1)
 
-    def move(self):
+    def move(self, x, y, z):
         self.connection.mav.send(mavutil.mavlink.MAVLink_set_position_target_local_ned_message(
             0,                                   
             self.connection.target_system,
             self.connection.target_component,
             mavutil.mavlink.MAV_FRAME_LOCAL_NED, 
             int(0b110111111000),
-            0, 0, 0,     # x, y, z COORDINATES
+            x, y, z,     # x, y, z COORDINATES
             0, 0, 0,       # x, y, z VELOCITY
             0, 0, 0,    
             0, 0  
