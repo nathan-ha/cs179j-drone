@@ -92,3 +92,7 @@ export MESA_D3D12_DEFAULT_ADAPTER_NAME=NVIDIA
 export GALLIUM_DRIVER=d3d12
 export LIBGL_ALWAYS_SOFTWARE=false
 ```
+
+
+sim_vehicle.py -v ArduCopter -f quad --console --map --out udp:127.0.0.1:14550
+sim_vehicle.py -v ArduCopter -f gazebo-iris --model JSON --map --console quad --map --out udp:127.0.0.1:14550
