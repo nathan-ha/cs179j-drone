@@ -1,27 +1,13 @@
 import cv2
 import numpy as np
 from picamera2 import Picamera2
-import argparse
-
-print('\n\n Available flags: --hide (default), --show, --help \n\n') 
-# ----------------------------
-# Parse command-line arguments
-# ----------------------------
-parser = argparse.ArgumentParser(description='Track red objects using Raspberry Pi camera')
-parser.add_argument('--show', action='store_true', 
-                    help='Show camera window (requires display/X11)')
-parser.add_argument('--hide', dest='show_window', action='store_false',
-                    help='Run in headless mode (default)')
-parser.set_defaults(show_window=False)
-
-args = parser.parse_args()
 
 # ----------------------------
 # Configuration
 # ----------------------------
 CENTER_TOLERANCE = 40
 MIN_CONTOUR_AREA = 500
-SHOW_WINDOW = args.show_window
+SHOW_WINDOW = False
 
 # ----------------------------
 # Initialize camera
@@ -33,6 +19,7 @@ config = picam2.create_preview_configuration(
     main={"format": "RGB888", "size": (640, 480)}
 )
 picam2.configure(config)
+
 picam2.start()
 
 print(f"Camera started. Window display: {'ON' if SHOW_WINDOW else 'OFF'}")
@@ -46,8 +33,6 @@ try:
         # Capture frame from picamera2
         frame = picam2.capture_array()
         
-        # Convert RGB to BGR for OpenCV
-        frame = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)
         
         height, width = frame.shape[:2]
         frame_center_x = width // 2
@@ -57,9 +42,9 @@ try:
         hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
         
         # Red HSV ranges
-        lower_red_1 = np.array([0, 120, 70])
+        lower_red_1 = np.array([0, 50, 50])
         upper_red_1 = np.array([10, 255, 255])
-        lower_red_2 = np.array([170, 120, 70])
+        lower_red_2 = np.array([170, 50, 50])
         upper_red_2 = np.array([180, 255, 255])
         
         mask1 = cv2.inRange(hsv, lower_red_1, upper_red_1)
@@ -102,10 +87,7 @@ try:
             cv2.imshow("Camera", frame)
             if cv2.waitKey(1) & 0xFF == ord("q"):
                 break
-        else:
-            # short sleep to avoid 100% cpu
-            cv2.waitKey(1)
-        
+
         print(direction)
 
 except KeyboardInterrupt:
