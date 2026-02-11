@@ -118,17 +118,45 @@ class Drone:
                     break
                 time.sleep(0.1)
 
-    def move(self, x, y, z):
+
+    
+    
+    def move(self, px, py, pz, vx, vy, vz):
         self.connection.mav.send(mavutil.mavlink.MAVLink_set_position_target_local_ned_message(
             0,                                   
             self.connection.target_system,
             self.connection.target_component,
             mavutil.mavlink.MAV_FRAME_LOCAL_NED, 
-            int(0b110111111000),
-            x, y, z,     # x, y, z COORDINATES
-            0, 0, 0,       # x, y, z VELOCITY
-            0, 0, 0,    
+            int(0b0000000000000),
+            px, py, pz,     # x, y, z COORDINATES
+            vx, vy, vz,       # x, y, z VELOCITY
+            0, 0, 0,    #acceleration
             0, 0  
         ))
-    
-    
+
+    def hover(self, px, py, pz):
+        self.move(px, py, pz, 0, 0, 0)
+
+    def up(self):
+        duration = 6
+        start_time = time.time()
+
+        while time.time() - start_time < duration:
+            msg = self.connection.recv_match(type='LOCAL_POSITION_NED', blocking=True)
+            current_x, current_y, current_z = msg.x, msg.y, msg.z
+            print(current_z)
+            self.move(0, 0, 0, 0, 0, -1.7)
+
+        self.hover(current_x, current_y, current_z)
+
+    def down(self):
+        duration = 2
+        start_time = time.time()
+
+        while time.time() - start_time < duration:
+            msg = self.connection.recv_match(type='LOCAL_POSITION_NED', blocking=True)
+            current_x, current_y, current_z = msg.x, msg.y, msg.z
+            print(current_z)
+            self.move(0, 0, 0, 0, 0, -0.7)
+
+        self.hover(current_x, current_y, current_z)
