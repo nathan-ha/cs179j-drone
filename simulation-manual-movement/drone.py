@@ -119,15 +119,16 @@ class Drone:
                 time.sleep(0.1)
 
 
-    
-    
-    def move(self, px, py, pz, vx, vy, vz):
+    # type_mask:
+    # Position: 0b110111111000 
+    # Velocity: 0b110111000111 
+    def move(self, px, py, pz, vx, vy, vz, type_mask):
         self.connection.mav.send(mavutil.mavlink.MAVLink_set_position_target_local_ned_message(
             0,                                   
             self.connection.target_system,
             self.connection.target_component,
             mavutil.mavlink.MAV_FRAME_LOCAL_NED, 
-            int(0b0000000000000),
+            int(type_mask),
             px, py, pz,     # x, y, z COORDINATES
             vx, vy, vz,       # x, y, z VELOCITY
             0, 0, 0,    #acceleration
@@ -135,28 +136,76 @@ class Drone:
         ))
 
     def hover(self, px, py, pz):
-        self.move(px, py, pz, 0, 0, 0)
+        self.move(px, py, pz, 0, 0, 0, 0b110111111000)
+
+    def reset_to_center(self):
+        msg = self.connection.recv_match(type='LOCAL_POSITION_NED', blocking=True)
+        current_z = msg.z
+        self.move(0, 0, msg.z, 0, 0, 0, 0b110111111000)
 
     def up(self):
-        duration = 6
         start_time = time.time()
+        duration = 2
 
         while time.time() - start_time < duration:
+            self.move(0, 0, 0, 0, 0, -0.2, 0b110111000111)
+            time.sleep(0.1) 
             msg = self.connection.recv_match(type='LOCAL_POSITION_NED', blocking=True)
-            current_x, current_y, current_z = msg.x, msg.y, msg.z
-            print(current_z)
-            self.move(0, 0, 0, 0, 0, -1.7)
 
-        self.hover(current_x, current_y, current_z)
+        self.hover(msg.x, msg.y, msg.z)
 
     def down(self):
-        duration = 2
         start_time = time.time()
+        duration = 2
 
         while time.time() - start_time < duration:
+            self.move(0, 0, 0, 0, 0, 0.2, 0b110111000111)
+            time.sleep(0.1) 
             msg = self.connection.recv_match(type='LOCAL_POSITION_NED', blocking=True)
-            current_x, current_y, current_z = msg.x, msg.y, msg.z
-            print(current_z)
-            self.move(0, 0, 0, 0, 0, -0.7)
 
-        self.hover(current_x, current_y, current_z)
+        self.hover(msg.x, msg.y, msg.z)
+
+    def forward(self):
+        start_time = time.time()
+        duration = 2
+
+        while time.time() - start_time < duration:
+            self.move(0, 0, 0, 0.2, 0, 0, 0b110111000111)
+            time.sleep(0.1) 
+            msg = self.connection.recv_match(type='LOCAL_POSITION_NED', blocking=True)
+
+        self.hover(msg.x, msg.y, msg.z)
+
+    def backward(self):
+        start_time = time.time()
+        duration = 2
+
+        while time.time() - start_time < duration:
+            self.move(0, 0, 0, -0.2, 0, 0, 0b110111000111)
+            time.sleep(0.1) 
+            msg = self.connection.recv_match(type='LOCAL_POSITION_NED', blocking=True)
+
+        self.hover(msg.x, msg.y, msg.z)
+
+    def left(self):
+        start_time = time.time()
+        duration = 2
+
+        while time.time() - start_time < duration:
+            self.move(0, 0, 0, 0, -0.2, 0, 0b110111000111)
+            time.sleep(0.1) 
+            msg = self.connection.recv_match(type='LOCAL_POSITION_NED', blocking=True)
+
+        self.hover(msg.x, msg.y, msg.z)
+
+
+    def right(self):
+        start_time = time.time()
+        duration = 2
+
+        while time.time() - start_time < duration:
+            self.move(0, 0, 0, 0, 0.2, 0, 0b110111000111)
+            time.sleep(0.1) 
+            msg = self.connection.recv_match(type='LOCAL_POSITION_NED', blocking=True)
+
+        self.hover(msg.x, msg.y, msg.z)

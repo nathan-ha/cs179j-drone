@@ -18,3 +18,13 @@ while True:
         drone.up()
     elif i == "s":
         drone.down()
+    elif i == "q":
+        drone.forward()
+    elif i == "e":
+        drone.backward()
+    elif i == "a":
+        drone.left()
+    elif i == "d":
+        drone.right()
+    elif i == "r":
+        drone.reset_to_center()
