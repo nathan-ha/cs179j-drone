@@ -156,7 +156,7 @@ class Drone:
             "Hello from MAVLink!".encode('utf-8')
 
         )
-    def test(self):
+    def test(self, speed):
         start_time = time.time()
         duration = 3  # seconds to lift off
         while time.time() - start_time < duration:
@@ -167,23 +167,23 @@ class Drone:
             0b00000111,              # ignore body rates
             [1, 0, 0, 0],            # level orientation (quaternion)
             0, 0, 0,                 # roll_rate, pitch_rate, yaw_rate
-            0.6                    # throttle (0–1)
+            speed                    # throttle (0–1)
             )
         #self.print_ack()
         time.sleep(0.1)
     
-    def test2(self):
-        start_time = time.time()
-        duration = 3  # seconds to lift off
-        while time.time() - start_time < duration:
-            self.connection.mav.set_attitude_target_send(
-            1000,#int(time.time()*1000),  # time_boot_ms
-            self.connection.target_system,
-            self.connection.target_component,
-            0b00000111,              # ignore body rates
-            [1, 0, 0, 0],            # level orientation (quaternion)
-            0, 0, 0,                 # roll_rate, pitch_rate, yaw_rate
-            0.3                    # throttle (0–1)
-            )
-        #self.print_ack()
-        time.sleep(0.1)
+    # def test2(self):
+    #     start_time = time.time()
+    #     duration = 3  # seconds to lift off
+    #     while time.time() - start_time < duration:
+    #         self.connection.mav.set_attitude_target_send(
+    #         1000,#int(time.time()*1000),  # time_boot_ms
+    #         self.connection.target_system,
+    #         self.connection.target_component,
+    #         0b00000111,              # ignore body rates
+    #         [1, 0, 0, 0],            # level orientation (quaternion)
+    #         0, 0, 0,                 # roll_rate, pitch_rate, yaw_rate
+    #         0.3                    # throttle (0–1)
+    #         )
+    #     #self.print_ack()
+    #     time.sleep(0.1)

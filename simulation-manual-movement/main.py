@@ -11,11 +11,14 @@ drone.set_mode("NOGPS") #its 20 rn so its nogps mode
 
 drone.arm()
 
-drone.test()
-time.sleep(3)
-drone.test2()
+drone.test(0.2)
+time.sleep(2)
+drone.test(0.4)
+time.sleep(2)
+drone.test(0.6)
+time.sleep(5)
 
-time.sleep(3)
+# time.sleep(3)
 
 drone.set_mode("LAND")
 
