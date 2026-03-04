@@ -7,18 +7,17 @@ drone = Drone()
 
 drone.connect()
 
-drone.set_mode("NOGPS") #its 20 rn so its nogps mode
+drone.set_mode("GUIDED") #its 20 rn so its nogps mode
 
 drone.arm()
 
-drone.test(0.2)
 time.sleep(2)
-drone.test(0.4)
-time.sleep(2)
-drone.test(0.6)
-time.sleep(5)
 
-# time.sleep(3)
+target_altitude = 2.0
+
+drone.takeoff(target_altitude)
+
+time.sleep(3)
 
 drone.set_mode("LAND")
 

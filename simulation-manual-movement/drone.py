@@ -1,5 +1,6 @@
 from pymavlink import mavutil
 import time
+import math
 
 class Drone:
     def __init__ (self):
