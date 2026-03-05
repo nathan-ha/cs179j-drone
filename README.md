@@ -1,4 +1,28 @@
-## Installation
+# Clone repository
+```
+git clone --depth 1 https://github.com/nathan-ha/cs179j-drone
+cd cs179j-drone
+```
+
+Updates the submodules if using simulation. 
+```
+git submodule update --init --recursive
+```
+
+## Virtual Environment & Dependencies
+Use a python virtual environment to minimize risk of errors.
+```
+python -m venv venv
+source venv/bin/activate
+pip install --upgrade pip setuptools wheel
+pip install -r ~/cs179j-drone/requirements.txt
+```
+```deactivate``` to exit the virtual environment and ```source venv/bin/activate``` to enter it.
+
+# Installation (Target Tracking)
+WIP
+
+# Installation (Simulation)
 This will be running on an Ubuntu/Linux device. WSL can be used on a Windows device.
 
 ### WSL
@@ -7,26 +31,6 @@ Installing WSL
 wsl --install
 ```
 Start WSL by typing ```wsl``` in the terminal or by using opening a **remote window in VSCode**.    <img width="30" height="23" alt="image" src="https://github.com/user-attachments/assets/fa9ee392-9032-4177-92d6-c438d29deca2" />
-
-## Clone repository
-```
-git clone --recursive https://github.com/nathan-ha/cs179j-drone
-cd cs179j-drone
-```
-
-Updates the submodules that are being used. 
-```
-git submodule update --init --recursive
-```
-## Virtual Environment
-Some dependencies for **ArduPilot** are safer to install and use inside a virtual environment compared to system-wide. 
-```
-python3 -m venv venv
-source venv/bin/activate
-pip install --upgrade pip setuptools wheel
-pip install -r ~/cs179j-drone/requirements.txt
-```
-```deactivate``` to exit the virtual environment and ```source venv/bin/activate``` to enter it.
 
 ## ArduPilot
 Install ArduPilot dependencies.
