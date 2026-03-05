@@ -9,7 +9,7 @@ class Drone:
         # Start a connection listening on a UDP port
 
         # MIGHT NEED TO CHANGE THIS FOR YOUR OWN DEVICE
-        self.connection = mavutil.mavlink_connection('udp:127.0.0.1:14550')
+        self.connection = mavutil.mavlink_connection('/dev/ttyACM0')
 
         # Wait for the first heartbeat
         #   This sets the system and component ID of remote system for the link
@@ -18,6 +18,7 @@ class Drone:
 
     def print_ack(self):
         msg = self.connection.recv_match(type='COMMAND_ACK', blocking=True)
+#        msg = self.connection.recv_match(type='STATUSTEXT', blocking=True)
         print(msg)
         return msg
 
@@ -109,15 +110,15 @@ class Drone:
         # Wait for drone to reach altitude
         result = self.print_ack()
 
-        if result.result == 0:
-            while True:
-                msg = self.connection.recv_match(type='GLOBAL_POSITION_INT', blocking=True)
-                alt_m = msg.relative_alt / 1000.0 
-                if alt_m >= altitude * 0.8:       
-                    print(f"Reached {altitude} m")
-                    break
-                time.sleep(0.1)
-
+#        if result.result == 0:
+#            while True:
+#                msg = self.connection.recv_match(type='GLOBAL_POSITION_INT', blocking=True)
+#                alt_m = msg.relative_alt / 1000.0 
+#                if alt_m >= altitude * 0.8:       
+#                    print(f"Reached {altitude} m")
+#                    break
+#                time.sleep(0.1)
+#
 
     # type_mask:
     # Position: 0b110111111000 
