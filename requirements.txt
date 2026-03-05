@@ -8,6 +8,4 @@ lxml
 numpy
 scipy
 matplotlib
-opencv-python
 pymavlink
-picamera2
