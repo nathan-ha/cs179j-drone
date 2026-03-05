@@ -10,9 +10,9 @@ git submodule update --init --recursive
 ```
 
 ## Virtual Environment & Dependencies
-Use a python virtual environment to minimize risk of errors.
+Use a python virtual environment to minimize risk of errors. We need the `--system-site-packages` flag because we are using picamera2 and opencv-python system packages, rather than pip ones.
 ```
-python -m venv venv
+python -m venv venv --system-site-packages
 source venv/bin/activate
 pip install --upgrade pip setuptools wheel
 pip install -r ~/cs179j-drone/requirements.txt
@@ -20,7 +20,12 @@ pip install -r ~/cs179j-drone/requirements.txt
 ```deactivate``` to exit the virtual environment and ```source venv/bin/activate``` to enter it.
 
 # Installation (Target Tracking)
-WIP
+This project uses OpenCV and the Raspberry Pi Zero specifically uses picamera2. These are best installed as system packages.
+```
+sudo apt update
+sudo apt install picamera2
+sudo apt install opencv-python
+```
 
 # Installation (Simulation)
 This will be running on an Ubuntu/Linux device. WSL can be used on a Windows device.
