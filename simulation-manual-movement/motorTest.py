@@ -5,14 +5,12 @@ import time
 
 drone = Drone()
 drone.connect()
-drone.set_mode("NOGPS") #its 20 rn so its nogps mode
+drone.set_mode("GUIDED") #its 20 rn so its nogps mode
 drone.arm()
 
 
 try:
      drone.test(0.1)
-     time.sleep(1)
-     drone.test2(0.1)
      time.sleep(1)
 except KeyboardInterrupt:
     drone.set_mode("LAND")

@@ -8,8 +8,9 @@ master = mavutil.mavlink_connection('/dev/ttyACM0')
 master.wait_heartbeat()
 print("Connected to system:", master.target_system)
 
-motor_number = [1, 2]
-throttle = 80.0      # percent
+motor_number = [1, 2, 3, 4]
+throttle1 = 80.0      # percent
+throttle2 = 0.0
 duration = 5.0       # seconds
 
 def spin_motor(motor, throttle_percent, seconds):
@@ -26,11 +27,13 @@ def spin_motor(motor, throttle_percent, seconds):
     )
 
 try:
-    print(f"Spinning motor {motor_number[0]} at {throttle}%")
-    spin_motor(motor_number[0], throttle, duration)
+    for i in [0, 1]:
+        print(f"Spinning motor {motor_number[i]} at {throttle1}%")
+        spin_motor(motor_number[i], throttle1, duration)
 
-    print(f"Spinning motor {motor_number[1]} at {throttle}%")
-    spin_motor(motor_number[1], throttle, duration)
+    for i in [2, 3]:
+        print(f"Spinning motor {motor_number[i]} at {throttle2}%")
+        spin_motor(motor_number[i], throttle2, duration)
 
     start = time.time()
     while time.time() - start < duration:
