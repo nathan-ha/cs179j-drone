@@ -1,27 +1,37 @@
-import curses
+import sys
+import select
+import termios
+import atexit
 import time
 
+# Save original terminal settings
+fd = sys.stdin.fileno()
+old_settings = termios.tcgetattr(fd)
 
-def main(stdscr):
-    curses.cbreak()
-    stdscr.nodelay(True)  # Non-blocking input
-    direction = None
-    try:
-        while True:
-            key = stdscr.getch()
-            if key == ord('d'):
-                direction = "RIGHT"
-            elif key == ord('a'):
-                direction = "LEFT"
-            else:
-                direction = None
+# Restore terminal settings on exit
+def restore_terminal():
+    termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
 
-            if direction:
-              print(direction)
+atexit.register(restore_terminal)
 
-            time.sleep(0.05)  # small delay
-    except KeyboardInterrupt:
-        pass
-    finally:
-      curses.wrapper(main)
+# Put terminal in raw mode (so we can read keys immediately)
+new_settings = termios.tcgetattr(fd)
+new_settings[3] = new_settings[3] & ~(termios.ICANON | termios.ECHO)  # Disable canonical mode and echo
+termios.tcsetattr(fd, termios.TCSADRAIN, new_settings)
 
+def get_key():
+    dr, dw, de = select.select([sys.stdin], [], [], 0)
+    if dr:
+        return sys.stdin.read(1)
+    return None
+
+try:
+    while True:
+        key = get_key()
+        if key == 'a':
+            print("LEFT")
+        elif key == 'd':
+            print("RIGHT")
+        time.sleep(0.05)
+except KeyboardInterrupt:
+    print("Exiting...")
