@@ -1,5 +1,5 @@
 from pymavlink import mavutil
-import src.tracking as tracking
+import tracking as tracking
 import time
 MOTOR_NUMBER = [1, 2, 3, 4]
 THROTTLE_ON = 80.0      # percent

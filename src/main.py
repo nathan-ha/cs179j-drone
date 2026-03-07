@@ -1,7 +1,7 @@
 import threading
 import time
-import src.motor as motor
-import src.tracking as tracking
+import motor as motor
+import tracking as tracking
 
 stop_event = threading.Event()
 
@@ -15,14 +15,16 @@ t_motor = threading.Thread(
     args=(stop_event,)
 )
 
+print("Starting target tracking thread...")
 t_color.start()
+print("Starting motor thread...")
 t_motor.start()
 
 try:
     while not stop_event.is_set(): # check stop event every 0.1s
       time.sleep(0.1)
 except KeyboardInterrupt:
-    print("***Keyboard interrupt received. Shutting down...")
+    print("\n***Keyboard interrupt received. Shutting down...")
 finally:
     stop_event.set()
     t_color.join()
