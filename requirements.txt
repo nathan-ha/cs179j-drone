@@ -1,0 +1,11 @@
+empy==3.3.4
+future
+pyserial
+pexpect
+MAVProxy
+dronecan
+lxml
+numpy
+scipy
+matplotlib
+pymavlink
