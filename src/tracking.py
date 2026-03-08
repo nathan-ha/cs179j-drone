@@ -64,6 +64,7 @@ def tracking_thread(stopFlag):
                         direction = "RIGHT" if dx > 0 else "LEFT"
                     else:
                         direction = "DOWN" if dy > 0 else "UP"
+        print(direction)
         CV_RESULT = direction
         
     picam2.stop()
