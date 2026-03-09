@@ -64,7 +64,7 @@ while True:
                 obj_y = int(M["m01"] / M["m00"])
 
                 dx = obj_x - frame_center_x
-                dy = obj_y - frame_center_y
+                dy = 0# obj_y - frame_center_y
 
                 if abs(dx) < CENTER_TOLERANCE and abs(dy) < CENTER_TOLERANCE:
                     direction = "CENTERED"
