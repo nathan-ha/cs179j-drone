@@ -5,7 +5,7 @@ import tracking as tracking
 import stepper as stepper
 
 stop_event = threading.Event()
-
+    
 t_color = threading.Thread(
     target=tracking.tracking_thread,
     args=(stop_event,)

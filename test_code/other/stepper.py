@@ -23,7 +23,7 @@ for pin in pins:
     GPIO.setup(pin, GPIO.OUT)
     GPIO.output(pin, 0)
 
-def step_motor(steps, delay=0.01):
+def step_motor(steps, delay=0.001):
     """Spin stepper motor a given number of steps"""
     for i in range(steps):
         for step in seq:
@@ -33,7 +33,7 @@ def step_motor(steps, delay=0.01):
 
 try:
     print("Rotating stepper motor")
-    step_motor(512)  # one full rotation for 28BYJ-48 stepper
+    step_motor(2048)  # one full rotation for 28BYJ-48 stepper
 except KeyboardInterrupt:
     print("\nStopped by user")
 finally:

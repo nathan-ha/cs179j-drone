@@ -16,9 +16,9 @@ STEP_SEQUENCE = [
     [0,0,0,1]
 ]
 
-STEP_FULL_ROTATION = 512
+STEP_FULL_ROTATION = 2048
 
-def step_motor(steps, stopFlag, delay=0.01):
+def step_motor(steps, stopFlag, delay=0.001):
     for i in range(steps):
         if stopFlag.is_set():
             return

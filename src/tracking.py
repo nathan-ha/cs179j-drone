@@ -1,5 +1,5 @@
 # Tracks the position of the color red relative to the center of the screen
-
+import time
 import cv2
 import numpy as np
 from picamera2 import Picamera2
@@ -64,8 +64,9 @@ def tracking_thread(stopFlag):
                         direction = "RIGHT" if dx > 0 else "LEFT"
                     else:
                         direction = "DOWN" if dy > 0 else "UP"
-        print(direction)
+        print(f"Red object direction: {direction}             ", end='\r')
         CV_RESULT = direction
+        time.sleep(0.1)
         
     picam2.stop()
     cv2.destroyAllWindows()

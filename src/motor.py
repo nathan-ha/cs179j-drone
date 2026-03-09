@@ -2,9 +2,9 @@ from pymavlink import mavutil
 import tracking as tracking
 import time
 MOTOR_NUMBER = [1, 2, 3, 4]
-THROTTLE_ON = 80.0      # percent
+THROTTLE_ON = 70.0      # percent
 THROTTLE_OFF = 0.0
-THROTTLE_TIME = 0.2 # seconds
+THROTTLE_TIME = 0.8 # seconds
 
 def motor_thread(stopFlag):
     master = mavutil.mavlink_connection('/dev/ttyACM0')
@@ -41,7 +41,7 @@ def motor_thread(stopFlag):
         else:
             for m in MOTOR_NUMBER:
                 spin_motor(m, THROTTLE_OFF, THROTTLE_TIME)
-        time.sleep(0.2)
+        time.sleep(0.1)
 
     # stop all motors
     for m in MOTOR_NUMBER:
