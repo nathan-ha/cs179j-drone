@@ -13,16 +13,30 @@ throttle = 10      # percent
 duration = 1       # seconds
 
 def spin_motor(motor, throttle_percent, seconds):
+    throttle = throttle_percent / 100.0
+
+    # Build actuator values, -1 means "leave unchanged"
+    actuators = [-1, -1, -1, -1, -1, -1]
+    actuators[motor - 1] = throttle  # motor is 1-indexed
+
     master.mav.command_long_send(
         master.target_system,
         master.target_component,
-        mavutil.mavlink.MAV_CMD_DO_MOTOR_TEST,
+        mavutil.mavlink.MAV_CMD_DO_SET_ACTUATOR,
         0,
-        motor,      # param1: motor instance
-        0,          # param2: throttle type (0 = percent)
-        throttle_percent,
-        seconds,
-        0, 0, 0
+        *actuators
+    )
+
+    time.sleep(seconds)
+
+    # Stop the motor
+    actuators[motor - 1] = 0.0
+    master.mav.command_long_send(
+        master.target_system,
+        master.target_component,
+        mavutil.mavlink.MAV_CMD_DO_SET_ACTUATOR,
+        0,
+        *actuators
     )
 
 try:
