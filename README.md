@@ -9,7 +9,7 @@ Updates the submodules if using simulation.
 git submodule update --init --recursive
 ```
 
-## Virtual Environment & Dependencies
+# Virtual Environment & Dependencies
 Use a python virtual environment to minimize risk of errors. We need the `--system-site-packages` flag because we are using picamera2 and opencv-python system packages, rather than pip ones.
 ```
 python -m venv venv --system-site-packages
@@ -26,6 +26,11 @@ sudo apt update
 sudo apt install picamera2
 sudo apt install opencv-python
 ```
+
+# Running Code
+- I recommend running ```python src/preflight.py``` to make sure that the flight controller + motors work properly.
+- You may also run ```python test_code/target-tracking/checkCam.py``` to check if the Raspberry Pi detects a camera.
+- Run ```python src``` while in the virtual environment to activate the auto tracking and shooting.
 
 # Installation (Simulation)
 This will be running on an Ubuntu/Linux device. WSL can be used on a Windows device.
