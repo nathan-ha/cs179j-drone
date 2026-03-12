@@ -18,7 +18,7 @@ STEP_SEQUENCE = [
 
 STEP_FULL_ROTATION = 2048
 
-def step_motor(steps, stopFlag, delay=0.001):
+def step_motor(steps, stopFlag, delay=0.0005):
     for i in range(steps):
         if stopFlag.is_set():
             return
@@ -38,9 +38,11 @@ def stepper_thread(stopFlag):
 
     while not stopFlag.is_set() and not isShot: 
         if tracking.CV_RESULT == "CENTERED":
-            print("Activating stepper motor...")
-            step_motor(STEP_FULL_ROTATION, stopFlag)
-            isShot = True
+            time.sleep(1)
+            if tracking.CV_RESULT == "CENTERED":
+                print("Activating stepper motor...")
+                step_motor(STEP_FULL_ROTATION, stopFlag)
+                isShot = True
         else:
             time.sleep(0.1)
     GPIO.cleanup()

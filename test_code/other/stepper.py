@@ -23,7 +23,7 @@ for pin in pins:
     GPIO.setup(pin, GPIO.OUT)
     GPIO.output(pin, 0)
 
-def step_motor(steps, delay=0.001):
+def step_motor(steps, delay=0.00005):
     """Spin stepper motor a given number of steps"""
     for i in range(steps):
         for step in seq:

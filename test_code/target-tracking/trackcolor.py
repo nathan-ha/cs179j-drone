@@ -39,7 +39,7 @@ try:
         frame_center_y = height // 2
         
         # Convert to HSV
-        hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+        hsv = cv2.cvtColor(frame, cv2.COLOR_RGB2HSV)
         
         # Red HSV ranges
         lower_red_1 = np.array([0, 50, 50])
