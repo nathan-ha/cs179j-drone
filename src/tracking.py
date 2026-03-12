@@ -4,7 +4,7 @@ import cv2
 import numpy as np
 from picamera2 import Picamera2
 
-CENTER_TOLERANCE = 40
+CENTER_TOLERANCE = 60
 MIN_CONTOUR_AREA = 500
 CV_RESULT = "NO TARGET"
 
@@ -25,7 +25,7 @@ def tracking_thread(stopFlag):
         frame_center_x = width // 2
         frame_center_y = height // 2
         
-        hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+        hsv = cv2.cvtColor(frame, cv2.COLOR_RGB2HSV)
         
         # Red HSV ranges
         lower_red_1 = np.array([0, 50, 50])
